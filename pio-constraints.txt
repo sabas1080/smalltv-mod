@@ -1,0 +1,10 @@
+# ESP32-C2 build pin. Export before building the C2 target:
+#   PIP_CONSTRAINT=pio-constraints.txt UV_CONSTRAINT=pio-constraints.txt pio run -e smalltv_c2
+# Why: PlatformIO Core 6.2.0 / pioarduino 6.2.0 pull SCons 4.11.1, whose build dies at
+# firmware.elf with "No module named 'SCons.Tool.FortranCommon'". 6.1.19 uses SCons 4.8.1,
+# which works. The C2 env's custom_sdkconfig rebuilds the IDF libs in a child pio run that
+# installs pioarduino via uv, so UV_CONSTRAINT must pin it too. Wipe ~/.platformio/penv if a
+# 6.2.0 run poisoned it.
+platformio==6.1.19
+pioarduino==6.1.19
+scons<4.9
